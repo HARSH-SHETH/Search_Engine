@@ -1,12 +1,12 @@
 # Data Structure Assignment:
-## Build a `**Small Search Engine**` using searching and sorting.
+## Build a `Small Search Engine` using searching and sorting.
 ## Search Engine: 
 
-A general search engine is an Internet portal through which a person can search numerous compiled resources for topic-related information. Common general search engines include Google, Yahoo!, Alta Vista and Bing. To perform a search, the user enters a word or phrase. 
+> A general search engine is an Internet portal through which a person can search numerous compiled resources for topic-related information. Common general search engines include Google, Yahoo!, Alta Vista and Bing. To perform a search, the user enters a word or phrase. 
 
 ## About:
 
-What a Search Engine basically does is, it finds a particular "Sentence and its related content" on a click and then it goes on backside, it searches  each word in the sentence which is present in one particular Sentence and its nearest related and relevant contents that is available in Internet among millions of Web Pages. Search Engines uses Web crawling, Indexing and Searching to find the particular "search" in Internet.
+> What a Search Engine basically does is, it finds a particular "Sentence and its related content" on a click and then it goes on backside, it searches  each word in the sentence which is present in one particular Sentence and its nearest related and relevant contents that is available in Internet among millions of Web Pages. Search Engines uses Web crawling, Indexing and Searching to find the particular "search" in Internet.
 
 ## Analogy between "Search Engine" vs "Mini Search Engine":
 
@@ -21,10 +21,10 @@ What a Search Engine basically does is, it finds a particular "Sentence and its 
 ## Searching & Indexing Technique :
 
 ### GOOGLE SEARCH ENGINE:
-PageRank is technique used by Google Search Engine to Rank the Website based on the Number of incoming links to the website.Google Bot is used for Indexing the New Webpages and the process used is Crawling. 
+>PageRank is technique used by Google Search Engine to Rank the Website based on the Number of incoming links to the website.Google Bot is used for Indexing the New Webpages and the process used is Crawling. 
 
 ### MINI SEARCH ENGINE:
-Linear Search Technique is used to search through text files where more than 100 elements are available to search. Each of the Element is indexed and stored. When a search is made, all the relevant words searched through each element(a line) and gives out INDEX when maximum match of words in an element occurs.A match is not found then the particular is search is indexed and then added to the text file.
+>Linear Search Technique is used to search through text files where more than 100 elements are available to search. Each of the Element is indexed and stored. When a search is made, all the relevant words searched through each element(a line) and gives out INDEX when maximum match of words in an element occurs.A match is not found then the particular is search is indexed and then added to the text file.
 
 ## HOW TO USE :
 
@@ -39,7 +39,7 @@ Linear Search Technique is used to search through text files where more than 100
 + Enter the keywords you want to search and choose any one url(it will be open in your default browser)
 
 ## NOTE: 
-  The project is not finished yet, I will be adding necessary changes to it.
+  > The project is not finished yet, I will be adding necessary changes to it.
 
 ## SPECIAL THANKS TO: 
-    @Mayurji
+    `@Mayur_Jain`
