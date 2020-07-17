@@ -42,4 +42,5 @@
   > The project is not finished yet, I will be adding necessary changes to it.
 
 ## SPECIAL THANKS TO: 
-    `@Mayur_Jain`
+
+  `@Mayur_Jain`
