@@ -1,3 +1,4 @@
+#define ERROR "BAD INPUT"
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -40,22 +41,17 @@ class SEARCH_ENGINE{
   private: 
     url_node *head, *tail;
     std::vector<std::string> list_of_urls;
-    std::vector<std::string> url_matched;
     std::vector<std::string> keywords;
   public: 
-    SEARCH_ENGINE(): head{NULL}, tail{NULL}, list_of_urls{""}, url_matched{""}, keywords{""} {}
+    SEARCH_ENGINE(): head{NULL}, tail{NULL}, list_of_urls{""}, keywords{""} {}
     void get_search_query(void); // GET QUERY ARRAY CONTAINING KEYWORDS
-    void fetch_urls(void);  // READ ALL URLS FROM URLS.TXT AND MAKE A VECTOR OF STRINGS
-    
-    // Return the vector containing urls or return not found as a first element of the array
-    void search_engine(void);  
-
+    void fetch_urls(void);      // READ ALL URLS FROM URLS.TXT AND MAKE A VECTOR OF STRINGS
+    void search_engine(void);  // RETURN THE VECTOR CONTAINING URLS OR RETURN NOT FOUND AS A FIRST ELEMENT OF THE VECTOR
     void update_queue(std::string);   // MAKE A NEW NODE AND INSERT URL ACC. TO PRIORITY
+    void append(std::string);
     void sort_queue(void);
     void write_url(void);   // WRITE SELECTED URL TO THE FILE: LINK.TXT
-    int display_urls(void); // DISPLAY THE LIST OF URLS MATCHING THE KEYWORD AND RETURN THE OPTION SELECTED
-    void append(std::string);
-    void test(void);
+    std::string  display_urls(void); // DISPLAY THE LIST OF URLS MATCHING THE KEYWORD AND RETURN THE OPTION SELECTED
 };
 
 // FETCH URLS FROM THE GENERIC_SOLUTION.TXT FILE AND APPEND TO THE VECTOR
@@ -190,15 +186,42 @@ void SEARCH_ENGINE::sort_queue(){
   return;
 }
 
-// TEST FUNCTION
-void SEARCH_ENGINE::test(){
+// DISPLAY URLS ACCORDING TO PRIORITY
+std::string SEARCH_ENGINE::display_urls(){
   url_node *ptr = new url_node;
-  ptr = head; 
-  while(ptr != NULL){
-    std::cout << ptr->url << ": " << ptr->priority << " \n";
+  ptr = head;
+  for(int i = 1; ptr != NULL; i++){
+    std::cout << " [" << i << "] " << ptr->url << "\n";
     ptr = ptr->link;
   }
+  std::cout << "Choose an url number: ";
+  char ch = getchar();
+  if(!isdigit(ch) || ch == '0'){ // CHECK IF USER ENTERED A DIGIT OR NOT
+    std::cout << ERROR;
+    return ERROR;
+  } else{
+    int choice = ch - '0';
+    ptr = head;
+    for(int i = 1; ptr != NULL; i++){
+      if(i == choice)
+        return ptr->url;
+      ptr = ptr->link;
+    }
+  }
 }
+
+// WRITE SELECTED URL TO THE RUN.SH FILE
+void SEARCH_ENGINE::write_url(void){
+  std::string choice = display_urls();
+  if(choice != ERROR){
+    std::cout << "YOU CHOOSE: " << choice;
+  }
+  std::ofstream fout; 
+  fout.open("link.txt", std::ios::out);
+  fout << choice;
+  fout.close();
+}
+
 
 // MAIN FUNCTION
 int main(){
@@ -207,6 +230,6 @@ int main(){
   S.fetch_urls();
   S.search_engine();
   S.sort_queue();
-  S.test();
+  S.write_url();
   return 0;
 }
