@@ -28,6 +28,14 @@ struct url_node{
   url_node *link;
 };
 
+url_node* create_new_node(url_node *ptr){
+  url_node *temp = new url_node;
+  temp->url = ptr->url; 
+  temp->priority = ptr->priority;
+  temp->link = NULL; 
+  return temp;
+}
+
 class SEARCH_ENGINE{
   private: 
     url_node *head, *tail;
@@ -43,9 +51,11 @@ class SEARCH_ENGINE{
     void search_engine(void);  
 
     void update_queue(std::string);   // MAKE A NEW NODE AND INSERT URL ACC. TO PRIORITY
+    void sort_queue(void);
     void write_url(void);   // WRITE SELECTED URL TO THE FILE: LINK.TXT
     int display_urls(void); // DISPLAY THE LIST OF URLS MATCHING THE KEYWORD AND RETURN THE OPTION SELECTED
     void append(std::string);
+    void test(void);
 };
 
 // FETCH URLS FROM THE GENERIC_SOLUTION.TXT FILE AND APPEND TO THE VECTOR
@@ -135,11 +145,68 @@ void SEARCH_ENGINE::append(std::string url){
   }
 }
 
+// SORT QUEUE ACCORDING TO PRIORITY
+void SEARCH_ENGINE::sort_queue(){
+  url_node *new_head      = new url_node;
+  url_node *new_tail      = new url_node;
+  url_node *ptr           = new url_node;
+  url_node *new_ptr       = new url_node;
+  url_node *prev_url_node = new url_node;
+  new_head = new_tail = new_ptr = prev_url_node = NULL;
+  ptr = head;
+  while(ptr != NULL){
+    new_ptr = new_head;
+    url_node *temp = create_new_node(ptr);
+    if(new_head == NULL){
+      new_head = new_tail = temp;
+    }
+    else{
+      bool is_inserted = false;
+      while(new_ptr != NULL){
+        if( (new_ptr == new_head) && (temp->priority >= new_head->priority) ){
+          temp->link = new_head;
+          new_head = temp;
+          is_inserted = true;
+        } else if(temp->priority >= new_ptr->priority){
+          temp->link = new_ptr;
+          prev_url_node->link = temp;
+          is_inserted = true;
+        }
+        prev_url_node = new_ptr;
+        new_ptr = new_ptr->link;
+        if(is_inserted){
+          break;
+        }
+      }
+      if(!is_inserted){
+        prev_url_node->link = temp;
+        new_tail = temp;
+      }
+    }
+    ptr = ptr->link;
+  }
+  head = new_head; 
+  tail = new_tail;
+  return;
+}
+
+// TEST FUNCTION
+void SEARCH_ENGINE::test(){
+  url_node *ptr = new url_node;
+  ptr = head; 
+  while(ptr != NULL){
+    std::cout << ptr->url << ": " << ptr->priority << " \n";
+    ptr = ptr->link;
+  }
+}
+
 // MAIN FUNCTION
 int main(){
   SEARCH_ENGINE S;
   S.get_search_query();
   S.fetch_urls();
   S.search_engine();
+  S.sort_queue();
+  S.test();
   return 0;
 }
