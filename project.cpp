@@ -5,13 +5,16 @@
 #include <ctype.h>
 #include <sstream>
 
+// convert string to lowercase {{{
 std::string lowercase(std::string &s){
   for(int i = 0; i < s.length(); i++){
     s[i] = std::tolower(s[i]);
   }
   return s;
 }
+// }}}
 
+// SEARCH A SUBSTRING INSIDE A STRING{{{
 bool search_substring(std::string sub_string, std::string main_string){
   std::stringstream ss(main_string);
   std::string word;
@@ -22,13 +25,17 @@ bool search_substring(std::string sub_string, std::string main_string){
   }
   return false;
 }
+// }}}
 
+// structure {{{
 struct url_node{ 
   std::string url;
   int priority;
   url_node *link;
 };
+// }}}
 
+//CREATE A NEW NODE WITH SAME CONTENTS AS OF ARGUMENT NODE{{{
 url_node* create_new_node(url_node *ptr){
   url_node *temp = new url_node;
   temp->url = ptr->url; 
@@ -36,7 +43,9 @@ url_node* create_new_node(url_node *ptr){
   temp->link = NULL; 
   return temp;
 }
+//}}}
 
+//MAIN CLASS{{{
 class SEARCH_ENGINE{
   private: 
     url_node *head, *tail;
@@ -48,13 +57,14 @@ class SEARCH_ENGINE{
     void fetch_urls(void);      // READ ALL URLS FROM URLS.TXT AND MAKE A VECTOR OF STRINGS
     void search_engine(void);  // RETURN THE VECTOR CONTAINING URLS OR RETURN NOT FOUND AS A FIRST ELEMENT OF THE VECTOR
     void update_queue(std::string);   // MAKE A NEW NODE AND INSERT URL ACC. TO PRIORITY
-    void append(std::string);
-    void sort_queue(void);
+    void append(std::string);         // APPEND NODE 
+    void sort_queue(void);            // SORT QUEUE ACCORDING TO PRIORITy
     void write_url(void);   // WRITE SELECTED URL TO THE FILE: LINK.TXT
     std::string  display_urls(void); // DISPLAY THE LIST OF URLS MATCHING THE KEYWORD AND RETURN THE OPTION SELECTED
 };
+//}}}
 
-// FETCH URLS FROM THE GENERIC_SOLUTION.TXT FILE AND APPEND TO THE VECTOR
+// FETCH URLS FROM THE GENERIC_SOLUTION.TXT FILE AND APPEND TO THE VECTOR{{{
 void SEARCH_ENGINE::fetch_urls(){
   std::ifstream fin;
   fin.open("Generic_Solution.txt", std::ios::in);
@@ -66,8 +76,9 @@ void SEARCH_ENGINE::fetch_urls(){
   fin.close();
   return;
 }
+// }}}
 
-// GET USER INPUT AND APPEND EACH WORD TO THE VECTOR KEYWORDS
+// GET USER INPUT AND APPEND EACH WORD TO THE VECTOR KEYWORDS{{{
 void SEARCH_ENGINE::get_search_query(){
   std::string s = ""; 
   getline(std::cin, s);
@@ -81,8 +92,9 @@ void SEARCH_ENGINE::get_search_query(){
     }
   }
 }
+// }}}
 
-// SEARCH KEYWORDS THROUGH DATABASE AND UPDATE QUEUE
+// SEARCH KEYWORDS THROUGH DATABASE AND UPDATE QUEUE{{{
 void SEARCH_ENGINE::search_engine(){
   std::ifstream fin;
   std::string word, line;
@@ -105,8 +117,9 @@ void SEARCH_ENGINE::search_engine(){
   }
   return;
 }
+// }}}
 
-// UPDATE QUEUE IF URL ALREADY INSIDE A NODE ELSE APPEND A NEW NODE CONTAINING URL
+// UPDATE QUEUE IF URL ALREADY INSIDE A NODE ELSE APPEND A NEW NODE CONTAINING URL{{{
 void SEARCH_ENGINE::update_queue(std::string url){
   url_node *ptr = new url_node;
   ptr = head;
@@ -122,8 +135,9 @@ void SEARCH_ENGINE::update_queue(std::string url){
     append(url);
   }
 }
+// }}}
 
-// APPEND URL BY CREATING A NEW NODE AND UPDATE HEAD AND TAIL POINTERS
+// APPEND URL BY CREATING A NEW NODE AND UPDATE HEAD AND TAIL POINTERS{{{
 void SEARCH_ENGINE::append(std::string url){
   url_node *temp = new url_node;
   temp->url = url; 
@@ -140,8 +154,9 @@ void SEARCH_ENGINE::append(std::string url){
     tail = temp;
   }
 }
+// }}}
 
-// SORT QUEUE ACCORDING TO PRIORITY
+// SORT QUEUE ACCORDING TO PRIORITY{{{
 void SEARCH_ENGINE::sort_queue(){
   url_node *new_head      = new url_node;
   url_node *new_tail      = new url_node;
@@ -185,8 +200,9 @@ void SEARCH_ENGINE::sort_queue(){
   tail = new_tail;
   return;
 }
+// }}}
 
-// DISPLAY URLS ACCORDING TO PRIORITY
+// DISPLAY URLS ACCORDING TO PRIORITY{{{
 std::string SEARCH_ENGINE::display_urls(){
   url_node *ptr = new url_node;
   ptr = head;
@@ -209,8 +225,9 @@ std::string SEARCH_ENGINE::display_urls(){
     }
   }
 }
+// }}}
 
-// WRITE SELECTED URL TO THE RUN.SH FILE
+// WRITE SELECTED URL TO THE RUN.SH FILE{{{
 void SEARCH_ENGINE::write_url(void){
   std::string choice = display_urls();
   if(choice != ERROR){
@@ -221,9 +238,9 @@ void SEARCH_ENGINE::write_url(void){
   fout << choice;
   fout.close();
 }
+// }}}
 
-
-// MAIN FUNCTION
+// MAIN FUNCTION{{{
 int main(){
   SEARCH_ENGINE S;
   S.get_search_query();
@@ -233,3 +250,4 @@ int main(){
   S.write_url();
   return 0;
 }
+// }}}
