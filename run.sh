@@ -8,3 +8,4 @@ then
 else
   xdg-open $string > /dev/null; 
 fi
+rm link.txt
