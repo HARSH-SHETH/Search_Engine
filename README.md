@@ -34,7 +34,9 @@
 
 + Give execution permission to `run.sh` file using: `chmod u+x run.sh`.
 
-+ Now just type: `./run.sh` in your terminal and the script will run the program.
++ Now, If you are using `bash shell` just type: `./run.sh` in your terminal and the script will run the program.
+
++ If you are uisng `zsh shell`, then use `bash ./run.sh`
 
 + Enter the keywords you want to search and choose any one url(it will be open in your default browser)
 
