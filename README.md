@@ -40,9 +40,6 @@
 
 + Enter the keywords you want to search and choose any one url(it will be open in your default browser)
 
-## NOTE: 
-  > The project is not finished yet, I will be adding necessary changes to it.
-
 ## SPECIAL THANKS TO: 
 
   `@Mayur_Jain`
