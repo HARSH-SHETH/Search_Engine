@@ -64,7 +64,7 @@ void SEARCH_ENGINE::search_engine(){
     fin.close();
   }
   if(!found){
-
+    update_queue(ERROR);
   }
   return;
 }
